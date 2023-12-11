@@ -8,7 +8,7 @@
    此外，其中每个子文件夹中包含一个labels.txt文件，文件中第一行表示图像类型，例如，1，2，3，以下每一行表示一个文件以及其中包含的标签。
 
 例如： 在Disks/2 目录下有3张图片image1.jpg, image2.jpg, image3.jpg, 那么labels.txt 内容可能如下。
-注意！只使用空格作为分隔符，不要使用任何其他分隔符，切记不要使用tab。空格不要敲两下，每次只敲一个空格！！！
+注意！只使用空格作为分隔符，不要使用任何其他分隔符，切记不要使用tab。空格不要敲两下，每次只敲一个空格。
 
 2
 image1 1 2 3 4 5 6 7 8 9 10 11 12
@@ -21,18 +21,30 @@ image3 3
     每个json文件由readme 软件生成，也可以自己手工写。
     用labelme软件的语法是
     labelme Disks --nodata --autosave
-    用该软件标注每一类图像中所有的坐标框，自动生成json文件，修改文件名后放到template_bbx文件夹中
+    1. 用该软件标注每一类图像中所有的坐标框，按control+R开始选择长方形。每个长方形尽可能框住一个位置的零件，同时避免框住其他位置的零件。
+    2. 从左上到右下角框的长方形标签为n_m, 其中n=1,2,3 为零件类型，m=1....15 为位置. 例如，小零件左上角的框的标签为1_1, 大零件右下角的框的标签为3_9。
+    3. 自动生成json文件，修改文件名后放到template_bbx文件夹中, 小零件命令为1.json，中零件为2.json, 大零件为3.json
 
+文件示例可以查看template_bbx目录下标注好的json文件。
+
+    
 
 操作：
 1.首先用 DataProcessing 进行截图，所有的截图储存在 Crop文件夹中
     python DataProcess.py
 2.训练模型
     python train.py
-3.模型打包
-    python pack.py
-4.测试全部图像
-    python test_script.py
+3.测试图像  Disks\2\image1.jpg
+    python test.py Disks\2\image1.jpg
+
+注意：可通过参数修改默认路径
+
 
 环境：
 pytorch==1.13
+
+
+算法逻辑：
+1. DataProcess.py: 将所有的Disk目录下的图像按照template_bbx下json文件的指定范围进行切割，切割后的小图像块储存在Crop目录下.
+2. train.py: 使用Crop目录下的图像训练模型，训练好的模型保存为当前目录下的 best.pt 文件.
+3. test.py: 使用训练好的模型进行测试.
