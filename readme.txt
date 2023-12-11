@@ -30,6 +30,8 @@ image3 3
     
 
 操作：
+0.准备工作，切换到conda环境中
+    conda activate torch2
 1.首先用 DataProcessing 进行截图，所有的截图储存在 Crop文件夹中
     python DataProcess.py
 2.训练模型
@@ -38,6 +40,13 @@ image3 3
     python test.py Disks\2\image1.jpg
 
 注意：可通过参数修改默认路径
+
+
+软件升级：
+软件代码托管在gitee上 https://gitee.com/Liszt8888/DiskRecog
+在根目录下 conda环境中
+    git pull https://gitee.com/Liszt8888/DiskRecog.git master
+
 
 
 环境：
