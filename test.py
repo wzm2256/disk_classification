@@ -39,8 +39,8 @@ def test_image(args):
     testloader = DataLoader(D_test, batch_size=36, shuffle=False, num_workers=0, drop_last=False)
 
     ## Load network
-    my_network = net1.AlexNet(num_classes=2, dropout=0.1)
-    my_network.load_state_dict(torch.load(args.model), map_location ='cpu')
+    my_network = net1.AlexNet(num_classes=2, dropout=0.0)
+    my_network.load_state_dict(torch.load(args.model, map_location ='cpu'))
     my_network.eval()
 
     # time3 = time.time()
