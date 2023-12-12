@@ -40,7 +40,7 @@ def test_image(args):
 
     ## Load network
     my_network = net1.AlexNet(num_classes=2, dropout=0.1)
-    my_network.load_state_dict(torch.load(args.model))
+    my_network.load_state_dict(torch.load(args.model), map_location ='cpu')
     my_network.eval()
 
     # time3 = time.time()
