@@ -2,6 +2,7 @@
 
 **Task**: Given an input image, output the type of disk in it, and the location of the disk.
 
+Non-commercial use only!
 
 ## Requirement 
 pytorch==1.13
